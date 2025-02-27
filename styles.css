@@ -63,3 +63,18 @@ button {
 button:hover {
     background: #ff6600;
 }
+.product {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between; /* Ensures button stays at the bottom */
+    height: 100%;
+}
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@700&display=swap');
+
+h1 {
+    font-family: 'Poppins', sans-serif;
+    font-size: 2.5rem;
+    font-weight: bold;
+    text-align: center;
+    margin-top: 20px;
+}
