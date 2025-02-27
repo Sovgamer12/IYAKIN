@@ -1,0 +1,17 @@
+@font-face {
+    font-family: 'RetroCool';
+    src: url('fonts/retro-cool.ttf') format('truetype');
+}
+
+@font-face {
+    font-family: 'Abjad';
+    src: url('fonts/abjad.ttf') format('truetype');
+}
+
+.ferris-wheel-title {
+    font-family: 'RetroCool', sans-serif;
+}
+
+body, h2, p, span {
+    font-family: 'Abjad', sans-serif;
+}
