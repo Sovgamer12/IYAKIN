@@ -7,3 +7,16 @@
 body, .product-title, .product-price {
     font-family: 'Poppins', sans-serif; /* Clean font for everything else */
 }
+.product img {
+    width: 100%; /* Makes all images stretch to fit the container */
+    height: 250px; /* Adjust height to match other images */
+    object-fit: cover; /* Ensures cropping instead of stretching */
+}
+.product {
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Centers images */
+    justify-content: space-between;
+    text-align: center;
+    height: 100%;
+}
