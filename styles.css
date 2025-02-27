@@ -1,63 +1,63 @@
-@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Poppins:wght@400;700&display=swap');
-
-.ferris-title {
-    font-family: 'Press Start 2P', cursive; /* Retro font */
+/* General Styling */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f8f8f8;
+    margin: 0;
+    padding: 20px;
 }
 
-body, .product-title, .product-price {
-    font-family: 'Poppins', sans-serif; /* Clean font for everything else */
-}
-.product img {
-    width: 100%; /* Makes all images stretch to fit the container */
-    height: 250px; /* Adjust height to match other images */
-    object-fit: cover; /* Ensures cropping instead of stretching */
-}
-.product {
+/* Product List Grid */
+#product-list {
     display: flex;
-    flex-direction: column;
-    align-items: center; /* Centers images */
-    justify-content: space-between;
-    text-align: center;
-    height: 100%;
+    flex-wrap: wrap;
+    justify-content: center; /* Centers the products */
+    gap: 20px; /* Spacing between products */
 }
 
-@font-face {
-    font-family: 'Abjad';
-    src: url('fonts/abjad-font/AbjadDemoPersonalUse-RpM6A.ttf') format('truetype');
-}
-
-@font-face {
-    font-family: 'Ferris Wheel Retro';
-    src: url('fonts/retro-cool-font/RetroCoolRegular-rgV2O.ttf') format('truetype');
-}
-
-/* Apply fonts */
-.product h3 { 
-    font-family: 'Ferris Wheel Retro', sans-serif; /* Product Name */
-    font-size: 20px;
-    font-weight: bold;
+/* Individual Product Card */
+.product {
+    background: white;
+    width: 180px; /* Ensures uniform width */
+    padding: 15px;
+    border-radius: 10px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
     text-align: center;
 }
 
-.product p { 
-    font-family: 'Abjad', sans-serif; /* Product Price */
-    font-size: 18px;
-    color: #333;
-    text-align: center;
+/* Product Image */
+.product img {
+    width: 150px; /* Set a fixed width */
+    height: 150px; /* Set a fixed height */
+    object-fit: cover; /* Ensures images fit the box */
+    display: block;
+    margin: auto;
+    border-radius: 5px;
 }
 
-.product button {
-    font-family: 'Abjad', sans-serif;
+/* Product Name */
+.product h3 {
     font-size: 16px;
-    background-color: black;
+    margin: 10px 0 5px;
+}
+
+/* Product Price */
+.product p {
+    font-size: 14px;
+    color: #555;
+    font-weight: bold;
+}
+
+/* Add to Cart Button */
+.product button {
+    background: #ff6600;
     color: white;
     border: none;
-    padding: 10px;
+    padding: 8px 12px;
+    border-radius: 5px;
     cursor: pointer;
-    display: block;
-    margin: 10px auto;
+    transition: 0.3s ease-in-out;
 }
 
 .product button:hover {
-    background-color: gray;
+    background: #e65c00;
 }
