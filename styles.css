@@ -1,17 +1,9 @@
-@font-face {
-    font-family: 'RetroCool';
-    src: url('fonts/retro-cool.ttf') format('truetype');
+@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Poppins:wght@400;700&display=swap');
+
+.ferris-title {
+    font-family: 'Press Start 2P', cursive; /* Retro font */
 }
 
-@font-face {
-    font-family: 'Abjad';
-    src: url('fonts/abjad.ttf') format('truetype');
-}
-
-.ferris-wheel-title {
-    font-family: 'RetroCool', sans-serif;
-}
-
-body, h2, p, span {
-    font-family: 'Abjad', sans-serif;
+body, .product-title, .product-price {
+    font-family: 'Poppins', sans-serif; /* Clean font for everything else */
 }
