@@ -1,8 +1,8 @@
 document.addEventListener("DOMContentLoaded", () => {
     const products = [
-        { name: "Air Force 1", price: 90, img: "air force 1.png" },
-        { name: "Kanye West x Bapesta", price: 7000, img: "kanye west x bapesta.avif" },
-        { name: "Puma Speedcat OG Red", price: 80, img: "puma speedcat og red.webp" },
+        { id: "Air Force 1", price: 90, img: "air force 1.png" },
+        { id: "Kanye West x Bapesta", price: 7000, img: "kanye west x bapesta.avif" },
+        { id: "Puma Speedcat OG Red", price: 80, img: "puma speedcat og red.webp" },
         { name: "Fear of God Essentials", price: 110, img: "fear of god essentials.webp" },
         { name: "Stussy 8 Ball", price: 75, img: "stussy 8 ball.webp" },
         { name: "Chrome Hearts Hoodie", price: 1200, img: "chrome hearts hoodie.webp" },
