@@ -78,3 +78,21 @@ h1 {
     text-align: center;
     margin-top: 20px;
 }
+
+.product-card {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between; /* Ensures proper spacing */
+    height: 100%; /* Forces uniform height */
+}
+
+.product-info {
+    flex-grow: 1; /* Allows the product details to expand */
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.add-to-cart {
+    margin-top: auto; /* Pushes it to the bottom */
+}
