@@ -20,3 +20,44 @@ body, .product-title, .product-price {
     text-align: center;
     height: 100%;
 }
+
+@font-face {
+    font-family: 'Abjad';
+    src: url('fonts/abjad-font/AbjadDemoPersonalUse-RpM6A.ttf') format('truetype');
+}
+
+@font-face {
+    font-family: 'Ferris Wheel Retro';
+    src: url('fonts/retro-cool-font/RetroCoolRegular-rgV2O.ttf') format('truetype');
+}
+
+/* Apply fonts */
+.product h3 { 
+    font-family: 'Ferris Wheel Retro', sans-serif; /* Product Name */
+    font-size: 20px;
+    font-weight: bold;
+    text-align: center;
+}
+
+.product p { 
+    font-family: 'Abjad', sans-serif; /* Product Price */
+    font-size: 18px;
+    color: #333;
+    text-align: center;
+}
+
+.product button {
+    font-family: 'Abjad', sans-serif;
+    font-size: 16px;
+    background-color: black;
+    color: white;
+    border: none;
+    padding: 10px;
+    cursor: pointer;
+    display: block;
+    margin: 10px auto;
+}
+
+.product button:hover {
+    background-color: gray;
+}
