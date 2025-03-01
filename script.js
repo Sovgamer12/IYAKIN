@@ -72,3 +72,18 @@ document.addEventListener("DOMContentLoaded", () => {
     // Initialize product display
     displayProducts(products);
 });
+const sortDropdown = document.getElementById("sort-select"); // Use the correct ID
+if (sortDropdown) {
+    sortDropdown.addEventListener("change", function () {
+        const sortBy = this.value;
+        if (sortBy === "price-low") {
+            displayProducts([...products].sort((a, b) => a.price - b.price));
+        } else if (sortBy === "price-high") {
+            displayProducts([...products].sort((a, b) => b.price - a.price));
+        } else {
+            displayProducts(products); // Default sorting
+        }
+    });
+} else {
+    console.error("Sort dropdown not found!");
+}
