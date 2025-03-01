@@ -11,16 +11,8 @@ body {
 h1 {
     font-size: 2.5rem;
     font-weight: bold;
+    text-align: center;
     margin-top: 20px;
-}
-
-.controls {
-    margin: 20px;
-}
-
-select {
-    padding: 5px;
-    font-size: 1rem;
 }
 
 .product-container {
@@ -38,32 +30,6 @@ select {
     border-radius: 10px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     text-align: center;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-    cursor: pointer;
-}
-
-.product-card:hover {
-    transform: scale(1.05);
-    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
-}
-
-.product-card img {
-    width: 100%;
-    height: 250px;
-    object-fit: contain;
-    border-radius: 8px;
-}
-
-.product-card h3 {
-    font-size: 1.2rem;
-    margin: 10px 0;
-}
-
-.product-card p {
-    font-size: 1rem;
-    color: #ff6600;
-    font-weight: bold;
-    margin-bottom: 10px;
 }
 
 button {
@@ -74,70 +40,28 @@ button {
     cursor: pointer;
     font-size: 1rem;
     border-radius: 5px;
-    transition: background 0.3s ease, transform 0.1s ease;
 }
 
-button:hover {
-    background: #ff6600;
-}
-
-button:active {
-    transform: scale(0.95);
-}
-
-#cart-container {
-    max-width: 500px;
-    margin: 20px auto;
-    background: white;
-    padding: 15px;
-    border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-}
-
-#cart-list {
-    list-style-type: none;
-    padding: 0;
-}
-
-#cart-list li {
-    display: flex;
-    justify-content: space-between;
-    padding: 10px;
-    border-bottom: 1px solid #ddd;
-}
-
-/* MODAL STYLES */
 .modal {
     display: none;
     position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    width: 400px;
-    max-width: 90%;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background: rgba(0,0,0,0.5);
+}
+
+.modal-content {
     background: white;
     padding: 20px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-    border-radius: 10px;
+    margin: 10% auto;
+    width: 50%;
     text-align: center;
 }
 
 .modal img {
-    width: 100%;
-    border-radius: 10px;
+    width: 300px;
+    transition: transform 0.3s;
 }
 
-.modal h2 {
-    font-size: 1.5rem;
-    margin: 10px 0;
-}
-
-.modal p {
-    font-size: 1rem;
-    color: #333;
-}
-
-#close-modal {
-    background: red;
-    margin-top: 10px;
+.modal img:hover {
+    transform: scale(1.1);
 }

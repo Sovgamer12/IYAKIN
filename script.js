@@ -1,171 +1,74 @@
 document.addEventListener("DOMContentLoaded", () => {
     const products = [
-        {
-          name: "Nike Air Force 1",
-          price: 100,
-          img: "air force 1.png",
-          category: "Sneakers",
-          description: "Introduced in 1982, the Nike Air Force 1 is a timeless basketball shoe known for its simple yet elegant design, featuring a clean white upper and a chunky midsole. It has evolved into a cultural icon embraced by various communities."
-        },
-        {
-          name: "Kanye West x Bapesta 'College Dropout'",
-          price: 3000,
-          img: "kanye west x bapesta.avif",
-          category: "Sneakers",
-          description: "A collaboration between Kanye West and BAPE, this Bapesta sneaker features a bear graphic inspired by West's 'The College Dropout' album cover, blending unique design elements with streetwear flair."
-        },
-        {
-          name: "Puma Speedcat OG Red",
-          price: 120,
-          img: "puma speedcat og red.webp",
-          category: "Sneakers",
-          description: "Inspired by motorsport racing footwear from the '80s and '90s, the Puma Speedcat OG Red offers a sleek, classic silhouette made from suede and leather, embodying a retro yet trendy aesthetic."
-        },
-        {
-          name: "Fear of God Essentials Hoodie",
-          price: 110,
-          img: "fear of god essentials.webp",
-          category: "Hoodies",
-          description: "The Fear of God Essentials Hoodie is crafted from core fleece, featuring a mock neckline, side seam pockets, rib-knit cuffs, and a rubberized 'Essentials' logo on the front, offering both comfort and style."
-        },
-        {
-          name: "Stussy 8 Ball Hoodie",
-          price: 69,
-          img: "stussy 8 ball.webp",
-          category: "Hoodies",
-          description: "The Stussy 8 Ball Hoodie showcases the brand's iconic 8-ball graphic, offering a relaxed fit with a drawstring hood and kangaroo pocket, perfect for streetwear enthusiasts seeking comfort and style."
-        },
-        {
-          name: "Chrome Hearts Hoodie",
-          price: 1500,
-          img: "chrome hearts hoodie.webp",
-          category: "Hoodies",
-          description: "The Chrome Hearts Hoodie features premium materials and the brand's signature cross motifs, providing a luxurious take on casual wear with a distinctive gothic aesthetic."
-        },
-        {
-          name: "Yamane Evisu Kyoto Roaring Tiger Denim Jacket",
-          price: 2300,
-          img: "yamane evisu kyoto roaring tiger.jpg",
-          category: "Denim Jackets",
-          description: "This Evisu denim jacket features intricate embroidery of a roaring tiger, blending traditional Japanese artistry with contemporary denim fashion, making it a standout piece."
-        },
-        {
-          name: "Carhartt Denim Jacket",
-          price: 700,
-          img: "carhartt denim jacket.jpg",
-          category: "Denim Jackets",
-          description: "Known for durability, the Carhartt Denim Jacket offers a rugged design with reinforced stitching and multiple pockets, suitable for both workwear and casual outfits."
-        },
-        {
-          name: "Levi Strauss 501 Denim Jeans",
-          price: 430,
-          img: "levi strauss 501.jpg",
-          category: "Denim Jeans",
-          description: "The Levi's 501 Jeans are a classic straight-leg denim, featuring a button fly and durable construction, representing timeless style and versatility in casual wear."
-        },
-        {
-          name: "JNCO Jorts",
-          price: 95,
-          img: "jnco.jpg",
-          category: "Jorts",
-          description: "JNCO Jorts are characterized by their wide-leg design and streetwear appeal, offering a bold fashion statement reminiscent of '90s urban culture."
-        },
-        {
-          name: "True Religion Jorts",
-          price: 89,
-          img: "true religion.jpg",
-          category: "Jorts",
-          description: "True Religion Jorts feature the brand's signature stitching and relaxed fit, combining comfort with a distinctive design for casual wear."
-        }
-      ];      
+        { id: 1, name: "Air Force 1", price: 90, img: "air force 1.png", description: "Classic white sneakers with a timeless design." },
+        { id: 2, name: "Kanye West x Bapesta", price: 7000, img: "kanye west x bapesta.avif", description: "Limited-edition sneakers from Kanye West’s collaboration with Bape." },
+        { id: 3, name: "Puma Speedcat OG Red", price: 80, img: "puma speedcat og red.webp", description: "Sleek and stylish motorsport-inspired sneakers." },
+        { id: 4, name: "Fear of God Essentials", price: 110, img: "fear of god essentials.webp", description: "High-quality oversized hoodie with a minimalist design." },
+        { id: 5, name: "Stussy 8 Ball", price: 75, img: "stussy 8 ball.webp", description: "Signature hoodie with the iconic 8-ball logo." },
+        { id: 6, name: "Chrome Hearts Hoodie", price: 1200, img: "chrome hearts hoodie.webp", description: "Luxury streetwear hoodie with gothic-inspired design." },
+        { id: 7, name: "Yamane Evisu Kyoto Roaring Tiger", price: 230, img: "yamane evisu kyoto roaring tiger.jpg", description: "Premium Japanese denim jacket featuring embroidered tiger artwork." },
+        { id: 8, name: "Carhartt Denim Jacket", price: 220, img: "carhartt denim jacket.jpg", description: "Durable and stylish denim jacket for casual wear." },
+        { id: 9, name: "Levi Strauss 501", price: 145, img: "levi strauss 501.jpg", description: "Iconic straight-leg denim jeans from Levi’s." },
+        { id: 10, name: "JNCO", price: 95, img: "jnco.jpg", description: "Throwback baggy jorts from the '90s era." },
+        { id: 11, name: "True Religion", price: 60, img: "true religion.jpg", description: "Classic jorts with signature stitching from True Religion." }
+    ];
 
-    let cart = [];
     const productList = document.getElementById("product-list");
-    const cartList = document.getElementById("cart-list");
-    const cartTotal = document.getElementById("cart-total");
-    const clearCartBtn = document.getElementById("clear-cart");
-    const sortSelect = document.getElementById("sort");
-
-    // MODAL ELEMENTS
-    const modal = document.createElement("div");
-    modal.classList.add("modal");
-    modal.innerHTML = `
-        <img id="modal-img" src="" alt="">
-        <h2 id="modal-name"></h2>
-        <p id="modal-desc"></p>
-        <button id="close-modal">Close</button>
-    `;
-    document.body.appendChild(modal);
+    const modal = document.getElementById("product-modal");
     const modalImg = document.getElementById("modal-img");
-    const modalName = document.getElementById("modal-name");
-    const modalDesc = document.getElementById("modal-desc");
-    const closeModal = document.getElementById("close-modal");
+    const modalTitle = document.getElementById("modal-title");
+    const modalDescription = document.getElementById("modal-description");
+    const modalPrice = document.getElementById("modal-price");
+    const addToCartBtn = document.getElementById("add-to-cart");
+    const closeModal = document.querySelector(".close");
 
-    function renderProducts() {
+    // Render products
+    function displayProducts(productArray) {
         productList.innerHTML = "";
-        products.forEach((product, index) => {
+        productArray.forEach(product => {
             const productCard = document.createElement("div");
             productCard.classList.add("product-card");
             productCard.innerHTML = `
                 <img src="${product.img}" alt="${product.name}" onerror="this.src='placeholder.jpg';">
                 <h3>${product.name}</h3>
                 <p>$${product.price}</p>
-                <button class="add-to-cart">Add to Cart</button>
+                <button class="view-details" data-id="${product.id}">View Details</button>
             `;
-
-            productCard.addEventListener("click", () => openModal(index));
-            productCard.querySelector(".add-to-cart").addEventListener("click", (e) => {
-                e.stopPropagation();
-                addToCart(product);
-                productCard.classList.add("clicked");
-                setTimeout(() => productCard.classList.remove("clicked"), 150);
-            });
-
             productList.appendChild(productCard);
         });
     }
 
-    function openModal(index) {
-        modal.style.display = "block";
-        modalImg.src = products[index].img;
-        modalName.textContent = products[index].name;
-        modalDesc.textContent = products[index].desc;
-    }
+    // Show modal with product details
+    productList.addEventListener("click", (e) => {
+        if (e.target.classList.contains("view-details")) {
+            const productId = e.target.dataset.id;
+            const product = products.find(p => p.id == productId);
+            if (product) {
+                modalImg.src = product.img;
+                modalTitle.textContent = product.name;
+                modalDescription.textContent = product.description;
+                modalPrice.textContent = `$${product.price}`;
+                addToCartBtn.dataset.id = product.id;
+                modal.style.display = "block";
+            }
+        }
+    });
 
+    // Close modal
     closeModal.addEventListener("click", () => {
         modal.style.display = "none";
     });
 
-    function addToCart(product) {
-        cart.push(product);
-        updateCart();
-    }
-
-    function updateCart() {
-        cartList.innerHTML = "";
-        let total = 0;
-        cart.forEach((product, index) => {
-            total += product.price;
-            const cartItem = document.createElement("li");
-            cartItem.innerHTML = $;{product.name} - $$;{product.price} <button class="remove" data-index="${index}">Remove</button>;
-            cartList.appendChild(cartItem);
-        });
-        cartTotal.innerText = Total; {total};
-        document.querySelectorAll(".remove").forEach(button => {
-            button.addEventListener("click", (e) => removeFromCart(e.target.dataset.index));
-        });
-    }
-
-    function removeFromCart(index) {
-        cart.splice(index, 1);
-        updateCart();
-    }
-
-    sortSelect.addEventListener("change", renderProducts);
-    clearCartBtn.addEventListener("click", () => {
-        cart = [];
-        updateCart();
+    // Sort products by price
+    document.getElementById("sort").addEventListener("change", function () {
+        const sortBy = this.value;
+        if (sortBy === "low-to-high") {
+            displayProducts([...products].sort((a, b) => a.price - b.price));
+        } else if (sortBy === "high-to-low") {
+            displayProducts([...products].sort((a, b) => b.price - a.price));
+        }
     });
 
-    renderProducts();
+    // Initialize product display
+    displayProducts(products);
 });
