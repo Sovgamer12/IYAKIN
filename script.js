@@ -1,61 +1,85 @@
 document.addEventListener("DOMContentLoaded", () => {
     const products = [
-        { id: 1, name: "Nike Air Force 1", price: 90, img: "air_force_1.png", category: "Sneakers", description: "A classic basketball sneaker from 1982, known for its clean white design and versatility." },
-        { id: 2, name: "Kanye West x Bapesta 'College Dropout'", price: 7000, img: "kanye_west_x_bapesta.avif", category: "Sneakers", description: "Limited-edition sneaker featuring Kanye's 'College Dropout' bear logo, a collab with BAPE." },
-        { id: 3, name: "Puma Speedcat OG Red", price: 80, img: "puma_speedcat_og_red.webp", category: "Sneakers", description: "Inspired by motorsports, this sneaker offers a sleek and stylish low-profile design." },
-        { id: 4, name: "Fear of God Essentials Hoodie", price: 110, img: "fear_of_god_essentials.webp", category: "Hoodie", description: "Minimalist hoodie with premium cotton fabric, part of Fear of God’s streetwear collection." },
-        { id: 5, name: "Stussy 8 Ball Hoodie", price: 75, img: "stussy_8_ball.webp", category: "Hoodie", description: "Signature hoodie featuring Stussy's iconic 8-ball graphic on the back." },
-        { id: 6, name: "Chrome Hearts Hoodie", price: 1200, img: "chrome_hearts_hoodie.webp", category: "Hoodie", description: "Luxury streetwear piece with bold Chrome Hearts gothic-style branding." },
-        { id: 7, name: "Yamane Evisu Kyoto Roaring Tiger", price: 230, img: "yamane_evisu_kyoto_roaring_tiger.jpg", category: "Denim Jacket", description: "Hand-painted Evisu denim jacket featuring the Kyoto Roaring Tiger design." },
-        { id: 8, name: "Carhartt Denim Jacket", price: 220, img: "carhartt_denim_jacket.jpg", category: "Denim Jacket", description: "Durable workwear-inspired denim jacket, perfect for rugged and casual wear." },
-        { id: 9, name: "Levi Strauss 501 Denim Jacket", price: 145, img: "levi_strauss_501.jpg", category: "Denim Jacket", description: "A timeless Levi’s jacket featuring the classic 501 design with premium denim." },
-        { id: 10, name: "JNCO Wide-Leg Jorts", price: 95, img: "jnco.jpg", category: "Jorts", description: "Baggy Y2K-style jorts, bringing back the 90s skater aesthetic." },
-        { id: 11, name: "True Religion Jorts", price: 60, img: "true_religion.jpg", category: "Jorts", description: "Denim jorts with the signature True Religion stitching and premium craftsmanship." }
+        { name: "Air Force 1", price: 90, img: "air force 1.png" },
+        { name: "Kanye West x Bapesta", price: 7000, img: "kanye west x bapesta.avif" },
+        { name: "Puma Speedcat OG Red", price: 80, img: "puma speedcat og red.webp" },
+        { name: "Fear of God Essentials", price: 110, img: "fear of god essentials.webp" },
+        { name: "Stussy 8 Ball", price: 75, img: "stussy 8 ball.webp" },
+        { name: "Chrome Hearts Hoodie", price: 1200, img: "chrome hearts hoodie.webp" },
+        { name: "Yamane Evisu Kyoto Roaring Tiger", price: 230, img: "yamane evisu kyoto roaring tiger.jpg" },
+        { name: "Carhartt Denim Jacket", price: 220, img: "carhartt denim jacket.jpg" },
+        { name: "Levi Strauss 501", price: 145, img: "levi strauss 501.jpg" },
+        { name: "JNCO", price: 95, img: "jnco.jpg" },
+        { name: "True Religion", price: 60, img: "true religion.jpg" }
     ];
 
+    let cart = [];
     const productList = document.getElementById("product-list");
-    const sortSelect = document.getElementById("sort-select");
+    const cartList = document.getElementById("cart-list");
+    const cartTotal = document.getElementById("cart-total");
+    const clearCartBtn = document.getElementById("clear-cart");
+    const sortSelect = document.getElementById("sort");
 
-    function displayProducts(productsToShow) {
+    function renderProducts() {
         productList.innerHTML = "";
-        productsToShow.forEach(product => {
+        products.forEach(product => {
             const productCard = document.createElement("div");
             productCard.classList.add("product-card");
             productCard.innerHTML = `
                 <img src="${product.img}" alt="${product.name}" onerror="this.src='placeholder.jpg';">
                 <h3>${product.name}</h3>
-                <p>Price: $${product.price}</p>
-                <button class="view-details" data-id="${product.id}">View Details</button>
+                <p>$${product.price}</p>
+                <button class="add-to-cart">Add to Cart</button>
             `;
+            productCard.querySelector(".add-to-cart").addEventListener("click", () => addToCart(product));
             productList.appendChild(productCard);
         });
     }
 
-    function sortProducts(option) {
-        let sortedProducts = [...products];
-
-        if (option === "price-low") {
-            sortedProducts.sort((a, b) => a.price - b.price);
-        } else if (option === "price-high") {
-            sortedProducts.sort((a, b) => b.price - a.price);
-        }
-
-        displayProducts(sortedProducts);
+    function addToCart(product) {
+        cart.push(product);
+        updateCart();
     }
 
-    sortSelect.addEventListener("change", (event) => {
-        sortProducts(event.target.value);
-    });
+    function updateCart() {
+        cartList.innerHTML = "";
+        let total = 0;
 
-    productList.addEventListener("click", (event) => {
-        if (event.target.classList.contains("view-details")) {
-            const productId = parseInt(event.target.getAttribute("data-id"));
-            const product = products.find(p => p.id === productId);
-            if (product) {
-                alert(`Product: ${product.name}\nCategory: ${product.category}\nPrice: $${product.price}\nDescription: ${product.description}`);
-            }
+        cart.forEach((product, index) => {
+            total += product.price;
+            const cartItem = document.createElement("li");
+            cartItem.innerHTML = `${product.name} - $${product.price} <button class="remove" data-index="${index}">Remove</button>`;
+            cartList.appendChild(cartItem);
+        });
+
+        cartTotal.innerText = `Total: $${total}`;
+        document.querySelectorAll(".remove").forEach(button => {
+            button.addEventListener("click", (e) => {
+                removeFromCart(e.target.dataset.index);
+            });
+        });
+    }
+
+    function removeFromCart(index) {
+        cart.splice(index, 1);
+        updateCart();
+    }
+
+    function sortProducts() {
+        const sortType = sortSelect.value;
+        if (sortType === "low-to-high") {
+            products.sort((a, b) => a.price - b.price);
+        } else if (sortType === "high-to-low") {
+            products.sort((a, b) => b.price - a.price);
         }
+        renderProducts();
+    }
+
+    sortSelect.addEventListener("change", sortProducts);
+    clearCartBtn.addEventListener("click", () => {
+        cart = [];
+        updateCart();
     });
 
-    displayProducts(products);
+    renderProducts();
 });
