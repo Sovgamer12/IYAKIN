@@ -13,22 +13,73 @@ document.addEventListener("DOMContentLoaded", () => {
         { name: "True Religion", price: 60, img: "true religion.jpg" }
     ];
 
+    let cart = [];
     const productList = document.getElementById("product-list");
+    const cartList = document.getElementById("cart-list");
+    const cartTotal = document.getElementById("cart-total");
+    const clearCartBtn = document.getElementById("clear-cart");
+    const sortSelect = document.getElementById("sort");
 
-    if (!productList) {
-        console.error("Error: #product-list not found.");
-        return;
+    function renderProducts() {
+        productList.innerHTML = "";
+        products.forEach(product => {
+            const productCard = document.createElement("div");
+            productCard.classList.add("product-card");
+            productCard.innerHTML = `
+                <img src="${product.img}" alt="${product.name}" onerror="this.src='placeholder.jpg';">
+                <h3>${product.name}</h3>
+                <p>$${product.price}</p>
+                <button class="add-to-cart">Add to Cart</button>
+            `;
+            productCard.querySelector(".add-to-cart").addEventListener("click", () => addToCart(product));
+            productList.appendChild(productCard);
+        });
     }
 
-    products.forEach(product => {
-        const productCard = document.createElement("div");
-        productCard.classList.add("product-card");
-        productCard.innerHTML = `
-            <img src="${product.img}" alt="${product.name}" onerror="this.src='placeholder.jpg';">
-            <h3>${product.name}</h3>
-            <p>$${product.price}</p>
-            <button class="add-to-cart">Add to Cart</button>
-        `;
-        productList.appendChild(productCard);
+    function addToCart(product) {
+        cart.push(product);
+        updateCart();
+    }
+
+    function updateCart() {
+        cartList.innerHTML = "";
+        let total = 0;
+
+        cart.forEach((product, index) => {
+            total += product.price;
+            const cartItem = document.createElement("li");
+            cartItem.innerHTML = `${product.name} - $${product.price} <button class="remove" data-index="${index}">Remove</button>`;
+            cartList.appendChild(cartItem);
+        });
+
+        cartTotal.innerText = `Total: $${total}`;
+        document.querySelectorAll(".remove").forEach(button => {
+            button.addEventListener("click", (e) => {
+                removeFromCart(e.target.dataset.index);
+            });
+        });
+    }
+
+    function removeFromCart(index) {
+        cart.splice(index, 1);
+        updateCart();
+    }
+
+    function sortProducts() {
+        const sortType = sortSelect.value;
+        if (sortType === "low-to-high") {
+            products.sort((a, b) => a.price - b.price);
+        } else if (sortType === "high-to-low") {
+            products.sort((a, b) => b.price - a.price);
+        }
+        renderProducts();
+    }
+
+    sortSelect.addEventListener("change", sortProducts);
+    clearCartBtn.addEventListener("click", () => {
+        cart = [];
+        updateCart();
     });
+
+    renderProducts();
 });
