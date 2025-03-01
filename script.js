@@ -1,16 +1,11 @@
 document.addEventListener("DOMContentLoaded", () => {
     const products = [
-        { name: "Air Force 1", price: 90, img: "air force 1.png" },
-        { name: "Kanye West x Bapesta", price: 7000, img: "kanye west x bapesta.avif" },
-        { name: "Puma Speedcat OG Red", price: 80, img: "puma speedcat og red.webp" },
-        { name: "Fear of God Essentials", price: 110, img: "fear of god essentials.webp" },
-        { name: "Stussy 8 Ball", price: 75, img: "stussy 8 ball.webp" },
-        { name: "Chrome Hearts Hoodie", price: 1200, img: "chrome hearts hoodie.webp" },
-        { name: "Yamane Evisu Kyoto Roaring Tiger", price: 230, img: "yamane evisu kyoto roaring tiger.jpg" },
-        { name: "Carhartt Denim Jacket", price: 220, img: "carhartt denim jacket.jpg" },
-        { name: "Levi Strauss 501", price: 145, img: "levi strauss 501.jpg" },
-        { name: "JNCO", price: 95, img: "jnco.jpg" },
-        { name: "True Religion", price: 60, img: "true religion.jpg" }
+        { name: "Air Force 1", price: 90, img: "air force 1.png", desc: "Classic Nike Air Force 1 sneakers." },
+        { name: "Kanye West x Bapesta", price: 7000, img: "kanye west x bapesta.avif", desc: "Limited edition Kanye West Bapesta shoes." },
+        { name: "Puma Speedcat OG Red", price: 80, img: "puma speedcat og red.webp", desc: "Iconic Puma Speedcat motorsport shoes." },
+        { name: "Fear of God Essentials", price: 110, img: "fear of god essentials.webp", desc: "Fear of God Essentials sweatshirt." },
+        { name: "Stussy 8 Ball", price: 75, img: "stussy 8 ball.webp", desc: "Stussy classic 8 ball design tee." },
+        { name: "Chrome Hearts Hoodie", price: 1200, img: "chrome hearts hoodie.webp", desc: "Luxury Chrome Hearts hoodie." },
     ];
 
     let cart = [];
@@ -20,9 +15,24 @@ document.addEventListener("DOMContentLoaded", () => {
     const clearCartBtn = document.getElementById("clear-cart");
     const sortSelect = document.getElementById("sort");
 
+    // MODAL ELEMENTS
+    const modal = document.createElement("div");
+    modal.classList.add("modal");
+    modal.innerHTML = `
+        <img id="modal-img" src="" alt="">
+        <h2 id="modal-name"></h2>
+        <p id="modal-desc"></p>
+        <button id="close-modal">Close</button>
+    `;
+    document.body.appendChild(modal);
+    const modalImg = document.getElementById("modal-img");
+    const modalName = document.getElementById("modal-name");
+    const modalDesc = document.getElementById("modal-desc");
+    const closeModal = document.getElementById("close-modal");
+
     function renderProducts() {
         productList.innerHTML = "";
-        products.forEach(product => {
+        products.forEach((product, index) => {
             const productCard = document.createElement("div");
             productCard.classList.add("product-card");
             productCard.innerHTML = `
@@ -31,10 +41,29 @@ document.addEventListener("DOMContentLoaded", () => {
                 <p>$${product.price}</p>
                 <button class="add-to-cart">Add to Cart</button>
             `;
-            productCard.querySelector(".add-to-cart").addEventListener("click", () => addToCart(product));
+
+            productCard.addEventListener("click", () => openModal(index));
+            productCard.querySelector(".add-to-cart").addEventListener("click", (e) => {
+                e.stopPropagation();
+                addToCart(product);
+                productCard.classList.add("clicked");
+                setTimeout(() => productCard.classList.remove("clicked"), 150);
+            });
+
             productList.appendChild(productCard);
         });
     }
+
+    function openModal(index) {
+        modal.style.display = "block";
+        modalImg.src = products[index].img;
+        modalName.textContent = products[index].name;
+        modalDesc.textContent = products[index].desc;
+    }
+
+    closeModal.addEventListener("click", () => {
+        modal.style.display = "none";
+    });
 
     function addToCart(product) {
         cart.push(product);
@@ -44,19 +73,15 @@ document.addEventListener("DOMContentLoaded", () => {
     function updateCart() {
         cartList.innerHTML = "";
         let total = 0;
-
         cart.forEach((product, index) => {
             total += product.price;
             const cartItem = document.createElement("li");
             cartItem.innerHTML = `${product.name} - $${product.price} <button class="remove" data-index="${index}">Remove</button>`;
             cartList.appendChild(cartItem);
         });
-
         cartTotal.innerText = `Total: $${total}`;
         document.querySelectorAll(".remove").forEach(button => {
-            button.addEventListener("click", (e) => {
-                removeFromCart(e.target.dataset.index);
-            });
+            button.addEventListener("click", (e) => removeFromCart(e.target.dataset.index));
         });
     }
 
@@ -65,17 +90,7 @@ document.addEventListener("DOMContentLoaded", () => {
         updateCart();
     }
 
-    function sortProducts() {
-        const sortType = sortSelect.value;
-        if (sortType === "low-to-high") {
-            products.sort((a, b) => a.price - b.price);
-        } else if (sortType === "high-to-low") {
-            products.sort((a, b) => b.price - a.price);
-        }
-        renderProducts();
-    }
-
-    sortSelect.addEventListener("change", sortProducts);
+    sortSelect.addEventListener("change", renderProducts);
     clearCartBtn.addEventListener("click", () => {
         cart = [];
         updateCart();
