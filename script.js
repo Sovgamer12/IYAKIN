@@ -1,11 +1,11 @@
 document.addEventListener("DOMContentLoaded", () => {
     const products = [
         { name: "Air Force 1", price: 90, img: "air force 1.png", desc: "Classic Nike Air Force 1 sneakers." },
+        { name: "Chrome Hearts Hoodie", price: 1200, img: "chrome hearts hoodie.webp", desc: "Luxury Chrome Hearts hoodie." },
+        { name: "Fear of God Essentials", price: 110, img: "fear of god essentials.webp", desc: "Fear of God Essentials sweatshirt." },
         { name: "Kanye West x Bapesta", price: 7000, img: "kanye west x bapesta.avif", desc: "Limited edition Kanye West Bapesta shoes." },
         { name: "Puma Speedcat OG Red", price: 80, img: "puma speedcat og red.webp", desc: "Iconic Puma Speedcat motorsport shoes." },
-        { name: "Fear of God Essentials", price: 110, img: "fear of god essentials.webp", desc: "Fear of God Essentials sweatshirt." },
         { name: "Stussy 8 Ball", price: 75, img: "stussy 8 ball.webp", desc: "Stussy classic 8 ball design tee." },
-        { name: "Chrome Hearts Hoodie", price: 1200, img: "chrome hearts hoodie.webp", desc: "Luxury Chrome Hearts hoodie." },
     ];
 
     let cart = [];
@@ -30,9 +30,9 @@ document.addEventListener("DOMContentLoaded", () => {
     const modalDesc = document.getElementById("modal-desc");
     const closeModal = document.getElementById("close-modal");
 
-    function renderProducts() {
+    function renderProducts(sortedProducts) {
         productList.innerHTML = "";
-        products.forEach((product, index) => {
+        sortedProducts.forEach((product, index) => {
             const productCard = document.createElement("div");
             productCard.classList.add("product-card");
             productCard.innerHTML = `
@@ -90,11 +90,24 @@ document.addEventListener("DOMContentLoaded", () => {
         updateCart();
     }
 
-    sortSelect.addEventListener("change", renderProducts);
-    clearCartBtn.addEventListener("click", () => {
-        cart = [];
-        updateCart();
-    });
+    function sortProducts() {
+        let sortedProducts = [...products];
 
-    renderProducts();
+        const sortValue = sortSelect.value;
+        if (sortValue === "name") {
+            sortedProducts.sort((a, b) => a.name.localeCompare(b.name)); // Alphabetical sorting
+        } else if (sortValue === "price-low-high") {
+            sortedProducts.sort((a, b) => a.price - b.price); // Price Low to High
+        } else if (sortValue === "price-high-low") {
+            sortedProducts.sort((a, b) => b.price - a.price); // Price High to Low
+        }
+
+        renderProducts(sortedProducts);
+    }
+
+    sortSelect.addEventListener("change", sortProducts);
+
+    // DEFAULT: Sort alphabetically when the page loads
+    sortProducts();
+    updateCart();
 });
