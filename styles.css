@@ -140,6 +140,24 @@ button:active {
     display: none;
 }
 
+.search-container {
+    margin: 20px;
+}
+
+#search-input {
+    padding: 10px;
+    font-size: 1rem;
+    width: 300px;
+    border-radius: 5px;
+    border: 1px solid #ddd;
+}
+
+#search-button {
+    padding: 10px 20px;
+    font-size: 1rem;
+    margin-left: 10px;
+}
+
 /* MODAL STYLES */
 .modal {
     display: none;

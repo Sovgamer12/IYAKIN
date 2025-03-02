@@ -18,15 +18,24 @@
         </nav>
     </header>
 
-    <div class="controls">
-        <label for="sort">Sort by Price:</label>
-        <select id="sort">
-            <option value="low-to-high">Low to High</option>
-            <option value="high-to-low">High to Low</option>
-        </select>
+    <div id="home-section">
+        <div class="search-container">
+            <input type="text" id="search-input" placeholder="Search items...">
+            <button id="search-button">Search</button>
+        </div>
+        <div id="search-results" class="product-container"></div>
     </div>
 
-    <div id="product-list" class="product-container"></div>
+    <div id="products-section" class="hidden">
+        <div class="controls">
+            <label for="sort">Sort by Price:</label>
+            <select id="sort">
+                <option value="low-to-high">Low to High</option>
+                <option value="high-to-low">High to Low</option>
+            </select>
+        </div>
+        <div id="product-list" class="product-container"></div>
+    </div>
 
     <div id="cart-section" class="hidden">
         <h2>🛒 Shopping Cart</h2>

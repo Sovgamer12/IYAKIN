@@ -20,12 +20,19 @@ document.addEventListener("DOMContentLoaded", () => {
     const clearCartBtn = document.getElementById("clear-cart");
     const buyNowBtn = document.getElementById("buy-now");
     const sortSelect = document.getElementById("sort");
+    const homeSection = document.getElementById("home-section");
+    const productsSection = document.getElementById("products-section");
     const cartSection = document.getElementById("cart-section");
+    const homeLink = document.getElementById("home-link");
+    const productsLink = document.getElementById("products-link");
     const cartLink = document.getElementById("cart-link");
+    const searchInput = document.getElementById("search-input");
+    const searchButton = document.getElementById("search-button");
+    const searchResults = document.getElementById("search-results");
 
-    function renderProducts() {
-        productList.innerHTML = "";
-        products.forEach(product => {
+    function renderProducts(productsArray, container) {
+        container.innerHTML = "";
+        productsArray.forEach(product => {
             const productCard = document.createElement("div");
             productCard.classList.add("product-card");
             productCard.innerHTML = `
@@ -35,7 +42,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 <button class="add-to-cart">Add to Cart</button>
             `;
             productCard.querySelector(".add-to-cart").addEventListener("click", () => addToCart(product));
-            productList.appendChild(productCard);
+            container.appendChild(productCard);
         });
     }
 
@@ -78,11 +85,22 @@ document.addEventListener("DOMContentLoaded", () => {
         } else if (sortType === "high-to-low") {
             products.sort((a, b) => b.price - a.price);
         }
-        renderProducts();
+        renderProducts(products, productList);
     }
 
-    function toggleCartSection() {
-        cartSection.classList.toggle("hidden");
+    function toggleSection(sectionToShow) {
+        homeSection.classList.add("hidden");
+        productsSection.classList.add("hidden");
+        cartSection.classList.add("hidden");
+        sectionToShow.classList.remove("hidden");
+    }
+
+    function searchItems() {
+        const query = searchInput.value.toLowerCase();
+        const filteredProducts = products.filter(product => 
+            product.name.toLowerCase().includes(query)
+        );
+        renderProducts(filteredProducts, searchResults);
     }
 
     sortSelect.addEventListener("change", sortProducts);
@@ -94,12 +112,22 @@ document.addEventListener("DOMContentLoaded", () => {
         alert("Thank you for your purchase!");
         cart = [];
         updateCart();
-        toggleCartSection();
+        toggleSection(homeSection);
+    });
+    homeLink.addEventListener("click", (e) => {
+        e.preventDefault();
+        toggleSection(homeSection);
+    });
+    productsLink.addEventListener("click", (e) => {
+        e.preventDefault();
+        toggleSection(productsSection);
     });
     cartLink.addEventListener("click", (e) => {
         e.preventDefault();
-        toggleCartSection();
+        toggleSection(cartSection);
     });
+    searchButton.addEventListener("click", searchItems);
+    searchInput.addEventListener("input", searchItems);
 
-    renderProducts();
+    renderProducts(products, productList);
 });
