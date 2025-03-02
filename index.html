@@ -3,13 +3,49 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ferris Wheel</title>
+    <title>Ferris Wheel - E-Commerce</title>
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <h1>Ferris Wheel Products</h1>
-    
+
+    <header>
+        <h1>Ferris Wheel Products</h1>
+        <div class="filters">
+            <label for="sort">Sort by:</label>
+            <select id="sort">
+                <option value="default">Default</option>
+                <option value="price-low">Price: Low to High</option>
+                <option value="price-high">Price: High to Low</option>
+            </select>
+        </div>
+        <button id="view-cart">🛒 View Cart (<span id="cart-count">0</span>)</button>
+    </header>
+
     <div id="product-list" class="product-container"></div>
+
+    <!-- Modal for Product Details -->
+    <div id="product-modal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <img id="modal-img" src="" alt="Product Image">
+            <h2 id="modal-title"></h2>
+            <p id="modal-description"></p>
+            <p><strong>Price:</strong> $<span id="modal-price"></span></p>
+            <p><strong>Stock:</strong> <span id="modal-stock"></span> available</p>
+            <button id="modal-add-to-cart">Add to Cart</button>
+        </div>
+    </div>
+
+    <!-- Cart Modal -->
+    <div id="cart-modal" class="modal">
+        <div class="modal-content">
+            <span class="close-cart">&times;</span>
+            <h2>Shopping Cart</h2>
+            <ul id="cart-items"></ul>
+            <p>Total: $<span id="cart-total">0</span></p>
+            <button id="checkout">Checkout</button>
+        </div>
+    </div>
 
     <script src="script.js"></script>
 </body>

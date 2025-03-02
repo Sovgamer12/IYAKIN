@@ -1,49 +1,90 @@
 document.addEventListener("DOMContentLoaded", () => {
     const products = [
-        { name: "Air Force 1", price: 90, img: "air force 1.png", stock: 10 },
-        { name: "Kanye West x Bapesta", price: 7000, img: "kanye west x bapesta.avif", stock: 3 },
-        { name: "Puma Speedcat OG Red", price: 80, img: "puma speedcat og red.webp", stock: 0 },
-        { name: "Fear of God Essentials", price: 110, img: "fear of god essentials.webp", stock: 6 },
-        { name: "Stussy 8 Ball", price: 75, img: "stussy 8 ball.webp", stock: 1 },
-        { name: "Chrome Hearts Hoodie", price: 1200, img: "chrome hearts hoodie.webp", stock: 2 },
-        { name: "Yamane Evisu Kyoto Roaring Tiger", price: 230, img: "yamane evisu kyoto roaring tiger.jpg", stock: 5 },
-        { name: "Carhartt Denim Jacket", price: 220, img: "carhartt denim jacket.jpg", stock: 8 },
-        { name: "Levi Strauss 501", price: 145, img: "levi strauss 501.jpg", stock: 0 },
-        { name: "JNCO", price: 95, img: "jnco.jpg", stock: 4 },
-        { name: "True Religion", price: 60, img: "true religion.jpg", stock: 6 }
+        { name: "Air Force 1", price: 90, img: "air force 1.png", stock: 10, description: "Classic Nike Air Force 1 shoes." },
+        { name: "Kanye West x Bapesta", price: 7000, img: "kanye west x bapesta.avif", stock: 2, description: "Limited edition Kanye West x Bapesta sneakers." },
+        { name: "Puma Speedcat OG Red", price: 80, img: "puma speedcat og red.webp", stock: 5, description: "Racing-inspired Puma sneakers." }
     ];
 
     const productList = document.getElementById("product-list");
-
-    if (!productList) {
-        console.error("Error: #product-list not found.");
-        return;
+    const cart = [];
+    
+    function renderProducts() {
+        productList.innerHTML = "";
+        products.forEach((product, index) => {
+            const productCard = document.createElement("div");
+            productCard.classList.add("product-card");
+            productCard.innerHTML = `
+                <img src="${product.img}" alt="${product.name}" onclick="showModal(${index})">
+                <h3>${product.name}</h3>
+                <p>$${product.price}</p>
+                <p>Stock: ${product.stock}</p>
+                <button class="add-to-cart" onclick="addToCart(${index})">Add to Cart</button>
+            `;
+            productList.appendChild(productCard);
+        });
     }
 
-    products.forEach(product => {
-        const productCard = document.createElement("div");
-        productCard.classList.add("product-card");
+    // Product Modal
+    window.showModal = function (index) {
+        const modal = document.getElementById("product-modal");
+        document.getElementById("modal-img").src = products[index].img;
+        document.getElementById("modal-title").textContent = products[index].name;
+        document.getElementById("modal-description").textContent = products[index].description;
+        document.getElementById("modal-price").textContent = products[index].price;
+        document.getElementById("modal-stock").textContent = products[index].stock;
+        document.getElementById("modal-add-to-cart").onclick = () => addToCart(index);
+        modal.style.display = "block";
+    };
 
-        let stockStatus = "";
-        let stockClass = "";
-        if (product.stock > 5) {
-            stockStatus = "✅ In Stock";
-            stockClass = "stock-in";
-        } else if (product.stock > 0) {
-            stockStatus = "⚠️ Limited Stock";
-            stockClass = "stock-limited";
+    document.querySelector(".close").onclick = () => {
+        document.getElementById("product-modal").style.display = "none";
+    };
+
+    // Add to Cart
+    window.addToCart = function (index) {
+        if (products[index].stock > 0) {
+            cart.push(products[index]);
+            products[index].stock--;
+            document.getElementById("cart-count").textContent = cart.length;
+            renderProducts();
         } else {
-            stockStatus = "❌ Out of Stock";
-            stockClass = "stock-out";
+            alert("Out of stock!");
         }
+    };
 
-        productCard.innerHTML = `
-            <img src="${product.img}" alt="${product.name}" onerror="this.src='placeholder.jpg';">
-            <h3>${product.name}</h3>
-            <p class="price">$${product.price}</p>
-            <p class="stock-status ${stockClass}">${stockStatus}</p>
-            <button class="add-to-cart" ${product.stock === 0 ? "disabled" : ""}>Add to Cart</button>
-        `;
-        productList.appendChild(productCard);
-    });
+    // Cart Modal
+    document.getElementById("view-cart").onclick = () => {
+        const cartModal = document.getElementById("cart-modal");
+        const cartItems = document.getElementById("cart-items");
+        const cartTotal = document.getElementById("cart-total");
+
+        cartItems.innerHTML = "";
+        let total = 0;
+        cart.forEach(item => {
+            total += item.price;
+            const li = document.createElement("li");
+            li.textContent = `${item.name} - $${item.price}`;
+            cartItems.appendChild(li);
+        });
+
+        cartTotal.textContent = total;
+        cartModal.style.display = "block";
+    };
+
+    document.querySelector(".close-cart").onclick = () => {
+        document.getElementById("cart-modal").style.display = "none";
+    };
+
+    // Sorting Function
+    document.getElementById("sort").onchange = function () {
+        const value = this.value;
+        if (value === "price-low") {
+            products.sort((a, b) => a.price - b.price);
+        } else if (value === "price-high") {
+            products.sort((a, b) => b.price - a.price);
+        }
+        renderProducts();
+    };
+
+    renderProducts();
 });
