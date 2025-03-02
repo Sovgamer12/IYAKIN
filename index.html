@@ -11,9 +11,9 @@
         <h1>Ferris Wheel</h1>
         <nav>
             <ul>
-                <li><a href="#">Home</a></li>
-                <li><a href="#">Products</a></li>
-                <li><a href="#">Cart</a></li>
+                <li><a href="#" id="home-link">Home</a></li>
+                <li><a href="#" id="products-link">Products</a></li>
+                <li><a href="#" id="cart-link">Cart</a></li>
             </ul>
         </nav>
     </header>
@@ -28,11 +28,14 @@
 
     <div id="product-list" class="product-container"></div>
 
-    <h2>🛒 Shopping Cart</h2>
-    <div id="cart-container">
-        <ul id="cart-list"></ul>
-        <p id="cart-total">Total: $0</p>
-        <button id="clear-cart">Clear Cart</button>
+    <div id="cart-section" class="hidden">
+        <h2>🛒 Shopping Cart</h2>
+        <div id="cart-container">
+            <ul id="cart-list"></ul>
+            <p id="cart-total">Total: $0</p>
+            <button id="clear-cart">Clear Cart</button>
+            <button id="buy-now">Buy Now</button>
+        </div>
     </div>
 
     <script src="script.js"></script>

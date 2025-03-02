@@ -18,7 +18,10 @@ document.addEventListener("DOMContentLoaded", () => {
     const cartList = document.getElementById("cart-list");
     const cartTotal = document.getElementById("cart-total");
     const clearCartBtn = document.getElementById("clear-cart");
+    const buyNowBtn = document.getElementById("buy-now");
     const sortSelect = document.getElementById("sort");
+    const cartSection = document.getElementById("cart-section");
+    const cartLink = document.getElementById("cart-link");
 
     function renderProducts() {
         productList.innerHTML = "";
@@ -48,7 +51,10 @@ document.addEventListener("DOMContentLoaded", () => {
         cart.forEach((product, index) => {
             total += product.price;
             const cartItem = document.createElement("li");
-            cartItem.innerHTML = `${product.name} - $${product.price} <button class="remove" data-index="${index}">Remove</button>`;
+            cartItem.innerHTML = `
+                ${product.name} - $${product.price}
+                <button class="remove" data-index="${index}">Remove</button>
+            `;
             cartList.appendChild(cartItem);
         });
 
@@ -75,10 +81,24 @@ document.addEventListener("DOMContentLoaded", () => {
         renderProducts();
     }
 
+    function toggleCartSection() {
+        cartSection.classList.toggle("hidden");
+    }
+
     sortSelect.addEventListener("change", sortProducts);
     clearCartBtn.addEventListener("click", () => {
         cart = [];
         updateCart();
+    });
+    buyNowBtn.addEventListener("click", () => {
+        alert("Thank you for your purchase!");
+        cart = [];
+        updateCart();
+        toggleCartSection();
+    });
+    cartLink.addEventListener("click", (e) => {
+        e.preventDefault();
+        toggleCartSection();
     });
 
     renderProducts();
