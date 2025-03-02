@@ -1,90 +1,100 @@
 document.addEventListener("DOMContentLoaded", () => {
     const products = [
-        { name: "Air Force 1", price: 90, img: "air force 1.png", stock: 10, description: "Classic Nike Air Force 1 shoes." },
-        { name: "Kanye West x Bapesta", price: 7000, img: "kanye west x bapesta.avif", stock: 2, description: "Limited edition Kanye West x Bapesta sneakers." },
-        { name: "Puma Speedcat OG Red", price: 80, img: "puma speedcat og red.webp", stock: 5, description: "Racing-inspired Puma sneakers." }
+        { name: "Air Force 1", price: 110, img: "air force 1.png" },
+        { name: "Kanye West x Bapesta", price: 3000, img: "kanye west x bapesta.avif" },
+        { name: "Puma Speedcat OG Red", price: 120, img: "puma speedcat og red.webp" },
+        { name: "Fear of God Essentials", price: 100, img: "fear of god essentials.webp" },
+        { name: "Stussy 8 Ball", price: 99, img: "stussy 8 ball.webp" },
+        { name: "Chrome Hearts Hoodie", price: 1200, img: "chrome hearts hoodie.webp" },
+        { name: "Yamane Evisu Kyoto Roaring Tiger", price: 330, img: "yamane evisu kyoto roaring tiger.jpg" },
+        { name: "Carhartt Denim Jacket", price: 220, img: "carhartt denim jacket.jpg" },
+        { name: "Levi Strauss 501", price: 501, img: "levi strauss 501.jpg" },
+        { name: "JNCO", price: 120, img: "jnco.jpg" },
+        { name: "True Religion", price: 99, img: "true religion.jpg" }
     ];
 
+    let cart = [];
     const productList = document.getElementById("product-list");
-    const cart = [];
-    
+    const cartList = document.getElementById("cart-list");
+    const cartTotal = document.getElementById("cart-total");
+    const clearCartBtn = document.getElementById("clear-cart");
+    const sortSelect = document.getElementById("sort");
+
     function renderProducts() {
         productList.innerHTML = "";
-        products.forEach((product, index) => {
+        products.forEach(product => {
             const productCard = document.createElement("div");
             productCard.classList.add("product-card");
             productCard.innerHTML = `
-                <img src="${product.img}" alt="${product.name}" onclick="showModal(${index})">
+                <img src="${product.img}" alt="${product.name}" onerror="this.src='placeholder.jpg';">
                 <h3>${product.name}</h3>
                 <p>$${product.price}</p>
-                <p>Stock: ${product.stock}</p>
-                <button class="add-to-cart" onclick="addToCart(${index})">Add to Cart</button>
+                <button class="add-to-cart">Add to Cart</button>
             `;
+            productCard.querySelector(".add-to-cart").addEventListener("click", () => addToCart(product));
             productList.appendChild(productCard);
         });
     }
 
-    // Product Modal
-    window.showModal = function (index) {
-        const modal = document.getElementById("product-modal");
-        document.getElementById("modal-img").src = products[index].img;
-        document.getElementById("modal-title").textContent = products[index].name;
-        document.getElementById("modal-description").textContent = products[index].description;
-        document.getElementById("modal-price").textContent = products[index].price;
-        document.getElementById("modal-stock").textContent = products[index].stock;
-        document.getElementById("modal-add-to-cart").onclick = () => addToCart(index);
-        modal.style.display = "block";
-    };
+    function addToCart(product) {
+        cart.push(product);
+        updateCart();
+    }
 
-    document.querySelector(".close").onclick = () => {
-        document.getElementById("product-modal").style.display = "none";
-    };
-
-    // Add to Cart
-    window.addToCart = function (index) {
-        if (products[index].stock > 0) {
-            cart.push(products[index]);
-            products[index].stock--;
-            document.getElementById("cart-count").textContent = cart.length;
-            renderProducts();
-        } else {
-            alert("Out of stock!");
-        }
-    };
-
-    // Cart Modal
-    document.getElementById("view-cart").onclick = () => {
-        const cartModal = document.getElementById("cart-modal");
-        const cartItems = document.getElementById("cart-items");
-        const cartTotal = document.getElementById("cart-total");
-
-        cartItems.innerHTML = "";
+    function updateCart() {
+        cartList.innerHTML = "";
         let total = 0;
-        cart.forEach(item => {
-            total += item.price;
-            const li = document.createElement("li");
-            li.textContent = `${item.name} - $${item.price}`;
-            cartItems.appendChild(li);
+
+        cart.forEach((product, index) => {
+            total += product.price;
+            const cartItem = document.createElement("li");
+            cartItem.innerHTML = `${product.name} - $${product.price} <button class="remove" data-index="${index}">Remove</button>`;
+            cartList.appendChild(cartItem);
         });
 
-        cartTotal.textContent = total;
-        cartModal.style.display = "block";
-    };
+        cartTotal.innerText = `Total: $${total}`;
+        document.querySelectorAll(".remove").forEach(button => {
+            button.addEventListener("click", (e) => {
+                removeFromCart(e.target.dataset.index);
+            });
+        });
+    }
 
-    document.querySelector(".close-cart").onclick = () => {
-        document.getElementById("cart-modal").style.display = "none";
-    };
+    function removeFromCart(index) {
+        cart.splice(index, 1);
+        updateCart();
+    }
 
-    // Sorting Function
-    document.getElementById("sort").onchange = function () {
-        const value = this.value;
-        if (value === "price-low") {
+    function sortProducts() {
+        const sortType = sortSelect.value;
+        if (sortType === "low-to-high") {
             products.sort((a, b) => a.price - b.price);
-        } else if (value === "price-high") {
+        } else if (sortType === "high-to-low") {
             products.sort((a, b) => b.price - a.price);
         }
         renderProducts();
-    };
+    }
+
+    sortSelect.addEventListener("change", sortProducts);
+    clearCartBtn.addEventListener("click", () => {
+        cart = [];
+        updateCart();
+    });
 
     renderProducts();
+});
+document.getElementById("sort").addEventListener("change", function () {
+    const sortType = this.value;
+    if (sortType === "price-low") {
+        products.sort((a, b) => a.price - b.price);
+    } else if (sortType === "price-high") {
+        products.sort((a, b) => b.price - a.price);
+    } else if (sortType === "stock") {
+        products.sort((a, b) => b.stock - a.stock);
+    }
+    displayProducts(); // Refresh product list
+});
+
+document.getElementById("view-cart").addEventListener("click", function () {
+    alert("Cart feature is under development! 🛒");
 });
