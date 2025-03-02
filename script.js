@@ -97,6 +97,10 @@ document.addEventListener("DOMContentLoaded", () => {
 
     function searchItems() {
         const query = searchInput.value.toLowerCase();
+        if (query === "") {
+            searchResults.innerHTML = ""; // Clear results if search input is empty
+            return;
+        }
         const filteredProducts = products.filter(product => 
             product.name.toLowerCase().includes(query)
         );
