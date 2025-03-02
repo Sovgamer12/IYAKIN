@@ -141,22 +141,3 @@ button:active {
     background: red;
     margin-top: 10px;
 }
-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    background: black;
-    color: white;
-    padding: 10px 20px;
-}
-
-.controls {
-    display: flex;
-    align-items: center;
-    gap: 15px;
-}
-
-#sort, #view-cart {
-    padding: 5px 10px;
-    font-size: 1rem;
-}

@@ -83,18 +83,3 @@ document.addEventListener("DOMContentLoaded", () => {
 
     renderProducts();
 });
-document.getElementById("sort").addEventListener("change", function () {
-    const sortType = this.value;
-    if (sortType === "price-low") {
-        products.sort((a, b) => a.price - b.price);
-    } else if (sortType === "price-high") {
-        products.sort((a, b) => b.price - a.price);
-    } else if (sortType === "stock") {
-        products.sort((a, b) => b.stock - a.stock);
-    }
-    displayProducts(); // Refresh product list
-});
-
-document.getElementById("view-cart").addEventListener("click", function () {
-    alert("Cart feature is under development! 🛒");
-});
