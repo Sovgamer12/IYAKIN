@@ -161,7 +161,7 @@ document.addEventListener("DOMContentLoaded", () => {
         if (userMessage.toLowerCase().includes("cancel")) {
             return "You can cancel your order within 24 hours of placing it. Please visit the Orders page to proceed.";
         } else if (userMessage.toLowerCase().includes("money") || userMessage.toLowerCase().includes("payment")) {
-            return "If you're facing payment issues, please contact our support team at support@ferriswheel.com.";
+            return "If you're facing payment issues, please contact our support team at support@iyakin.com.";
         } else if (userMessage.toLowerCase().includes("negotiate") || userMessage.toLowerCase().includes("discount")) {
             return "We offer discounts on bulk orders. Please provide more details about your request.";
         } else if (userMessage.toLowerCase().includes("talk") || userMessage.toLowerCase().includes("chat")) {
