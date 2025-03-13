@@ -258,3 +258,18 @@ button:active {
     color: black;
     margin-right: auto;
 }
+
+#typing-indicator {
+    font-style: italic;
+    color: #666;
+    margin-bottom: 10px;
+    display: none;
+}
+
+#typing-indicator.visible {
+    display: block;
+}
+
+.hidden {
+    display: none;
+}

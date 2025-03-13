@@ -36,6 +36,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const chatWindow = document.getElementById("chat-window");
     const chatInput = document.getElementById("chat-input");
     const sendButton = document.getElementById("send-button");
+    const typingIndicator = document.getElementById("typing-indicator");
 
     function renderProducts(productsArray, container) {
         container.innerHTML = "";
@@ -137,16 +138,36 @@ document.addEventListener("DOMContentLoaded", () => {
             senderMessage.textContent = messageText;
             chatWindow.appendChild(senderMessage);
 
+            // Show typing indicator
+            typingIndicator.classList.add("visible");
+
             // Simulate a response from the seller (receiver)
             setTimeout(() => {
+                typingIndicator.classList.remove("visible"); // Hide typing indicator
+                const botResponse = getBotResponse(messageText); // Get bot response
                 const receiverMessage = document.createElement("div");
                 receiverMessage.classList.add("message", "receiver");
-                receiverMessage.textContent = "Thank you for your message! How can I assist you?";
+                receiverMessage.textContent = botResponse;
                 chatWindow.appendChild(receiverMessage);
                 chatWindow.scrollTop = chatWindow.scrollHeight; // Auto-scroll to the latest message
-            }, 1000);
+            }, 2000); // Simulate a 2-second delay for typing
 
             chatInput.value = ""; // Clear input field
+        }
+    }
+
+    function getBotResponse(userMessage) {
+        // Predefined responses
+        if (userMessage.toLowerCase().includes("cancel")) {
+            return "You can cancel your order within 24 hours of placing it. Please visit the Orders page to proceed.";
+        } else if (userMessage.toLowerCase().includes("money") || userMessage.toLowerCase().includes("payment")) {
+            return "If you're facing payment issues, please contact our support team at support@ferriswheel.com.";
+        } else if (userMessage.toLowerCase().includes("negotiate") || userMessage.toLowerCase().includes("discount")) {
+            return "We offer discounts on bulk orders. Please provide more details about your request.";
+        } else if (userMessage.toLowerCase().includes("talk") || userMessage.toLowerCase().includes("chat")) {
+            return "Of course! I'm here to chat with you. What would you like to talk about?";
+        } else {
+            return "Thank you for your message! How can I assist you?";
         }
     }
 
