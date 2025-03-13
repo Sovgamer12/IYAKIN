@@ -135,3 +135,50 @@ document.addEventListener("DOMContentLoaded", () => {
 
     renderProducts(products, productList);
 });
+
+    // Existing code...
+
+    const chatSection = document.getElementById("chat-section");
+    const chatLink = document.getElementById("chat-link");
+    const chatWindow = document.getElementById("chat-window");
+    const chatInput = document.getElementById("chat-input");
+    const sendButton = document.getElementById("send-button");
+
+    // Toggle chat section
+    chatLink.addEventListener("click", (e) => {
+        e.preventDefault();
+        toggleSection(chatSection);
+    });
+
+    // Send message
+    sendButton.addEventListener("click", sendMessage);
+    chatInput.addEventListener("keypress", (e) => {
+        if (e.key === "Enter") {
+            sendMessage();
+        }
+    });
+
+    function sendMessage() {
+        const messageText = chatInput.value.trim();
+        if (messageText !== "") {
+            // Display sender's message
+            const senderMessage = document.createElement("div");
+            senderMessage.classList.add("message", "sender");
+            senderMessage.textContent = messageText;
+            chatWindow.appendChild(senderMessage);
+
+            // Simulate a response from the seller (receiver)
+            setTimeout(() => {
+                const receiverMessage = document.createElement("div");
+                receiverMessage.classList.add("message", "receiver");
+                receiverMessage.textContent = "Thank you for your message! How can I assist you?";
+                chatWindow.appendChild(receiverMessage);
+                chatWindow.scrollTop = chatWindow.scrollHeight; // Auto-scroll to the latest message
+            }, 1000);
+
+            chatInput.value = ""; // Clear input field
+        }
+    }
+
+    // Existing code...
+});

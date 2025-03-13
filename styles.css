@@ -193,3 +193,68 @@ button:active {
     background: red;
     margin-top: 10px;
 }
+
+/* Chat Section Styles */
+#chat-section {
+    max-width: 500px;
+    margin: 20px auto;
+    background: white;
+    padding: 15px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+#chat-window {
+    height: 300px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    padding: 10px;
+    overflow-y: auto;
+    margin-bottom: 10px;
+    background: #f9f9f9;
+}
+
+#chat-input {
+    width: calc(100% - 90px);
+    padding: 10px;
+    font-size: 1rem;
+    border-radius: 5px;
+    border: 1px solid #ddd;
+}
+
+#send-button {
+    width: 80px;
+    padding: 10px;
+    font-size: 1rem;
+    margin-left: 10px;
+    background: black;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background 0.3s ease;
+}
+
+#send-button:hover {
+    background: #ff6600;
+}
+
+.message {
+    margin-bottom: 10px;
+    padding: 8px;
+    border-radius: 5px;
+    background: #e1e1e1;
+    max-width: 70%;
+}
+
+.message.sender {
+    background: #007bff;
+    color: white;
+    margin-left: auto;
+}
+
+.message.receiver {
+    background: #f1f1f1;
+    color: black;
+    margin-right: auto;
+}
