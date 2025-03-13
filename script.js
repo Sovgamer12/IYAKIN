@@ -167,7 +167,7 @@ document.addEventListener("DOMContentLoaded", () => {
         } else if (userMessage.toLowerCase().includes("talk") || userMessage.toLowerCase().includes("chat")) {
             return "Of course! I'm here to chat with you. What would you like to talk about?";
         } else if (userMessage.toLowerCase().includes("thank you") || userMessage.toLowerCase().includes("thanks")) {
-            return "I'm happy to be of help to you. Kindly approach if you need more help";
+            return "You're welcome!  Let me know if you need any more assistance.";
         } else {
             return "Thank you for your message! How can I assist you?";
         }    
