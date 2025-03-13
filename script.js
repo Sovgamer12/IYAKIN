@@ -166,9 +166,11 @@ document.addEventListener("DOMContentLoaded", () => {
             return "We offer discounts on bulk orders. Please provide more details about your request.";
         } else if (userMessage.toLowerCase().includes("talk") || userMessage.toLowerCase().includes("chat")) {
             return "Of course! I'm here to chat with you. What would you like to talk about?";
+        } else if (userMessage.toLowerCase().includes("thank you") || userMessage.toLowerCase().includes("thanks")) {
+            return "I'm happy to be of help to you. Kindly approach if you need more help";
         } else {
             return "Thank you for your message! How can I assist you?";
-        }
+        }    
     }
 
     // Event Listeners
