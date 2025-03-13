@@ -136,6 +136,7 @@ document.addEventListener("DOMContentLoaded", () => {
     renderProducts(products, productList);
 });
 
+document.addEventListener("DOMContentLoaded", () => {
     // Existing code...
 
     const chatSection = document.getElementById("chat-section");
