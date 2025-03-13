@@ -23,12 +23,19 @@ document.addEventListener("DOMContentLoaded", () => {
     const homeSection = document.getElementById("home-section");
     const productsSection = document.getElementById("products-section");
     const cartSection = document.getElementById("cart-section");
+    const chatSection = document.getElementById("chat-section"); // Added Chat Section
     const homeLink = document.getElementById("home-link");
     const productsLink = document.getElementById("products-link");
     const cartLink = document.getElementById("cart-link");
+    const chatLink = document.getElementById("chat-link"); // Added Chat Link
     const searchInput = document.getElementById("search-input");
     const searchButton = document.getElementById("search-button");
     const searchResults = document.getElementById("search-results");
+
+    // Chat Elements
+    const chatWindow = document.getElementById("chat-window");
+    const chatInput = document.getElementById("chat-input");
+    const sendButton = document.getElementById("send-button");
 
     function renderProducts(productsArray, container) {
         container.innerHTML = "";
@@ -92,6 +99,7 @@ document.addEventListener("DOMContentLoaded", () => {
         homeSection.classList.add("hidden");
         productsSection.classList.add("hidden");
         cartSection.classList.add("hidden");
+        chatSection.classList.add("hidden"); // Hide Chat Section
         sectionToShow.classList.remove("hidden");
     }
 
@@ -107,51 +115,12 @@ document.addEventListener("DOMContentLoaded", () => {
         renderProducts(filteredProducts, searchResults);
     }
 
-    sortSelect.addEventListener("change", sortProducts);
-    clearCartBtn.addEventListener("click", () => {
-        cart = [];
-        updateCart();
-    });
-    buyNowBtn.addEventListener("click", () => {
-        alert("Thank you for your purchase!");
-        cart = [];
-        updateCart();
-        toggleSection(homeSection);
-    });
-    homeLink.addEventListener("click", (e) => {
-        e.preventDefault();
-        toggleSection(homeSection);
-    });
-    productsLink.addEventListener("click", (e) => {
-        e.preventDefault();
-        toggleSection(productsSection);
-    });
-    cartLink.addEventListener("click", (e) => {
-        e.preventDefault();
-        toggleSection(cartSection);
-    });
-    searchButton.addEventListener("click", searchItems);
-    searchInput.addEventListener("input", searchItems);
-
-    renderProducts(products, productList);
-});
-
-document.addEventListener("DOMContentLoaded", () => {
-    // Existing code...
-
-    const chatSection = document.getElementById("chat-section");
-    const chatLink = document.getElementById("chat-link");
-    const chatWindow = document.getElementById("chat-window");
-    const chatInput = document.getElementById("chat-input");
-    const sendButton = document.getElementById("send-button");
-
-    // Toggle chat section
+    // Chat Functionality
     chatLink.addEventListener("click", (e) => {
         e.preventDefault();
         toggleSection(chatSection);
     });
 
-    // Send message
     sendButton.addEventListener("click", sendMessage);
     chatInput.addEventListener("keypress", (e) => {
         if (e.key === "Enter") {
@@ -181,5 +150,33 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     }
 
-    // Existing code...
+    // Event Listeners
+    sortSelect.addEventListener("change", sortProducts);
+    clearCartBtn.addEventListener("click", () => {
+        cart = [];
+        updateCart();
+    });
+    buyNowBtn.addEventListener("click", () => {
+        alert("Thank you for your purchase!");
+        cart = [];
+        updateCart();
+        toggleSection(homeSection);
+    });
+    homeLink.addEventListener("click", (e) => {
+        e.preventDefault();
+        toggleSection(homeSection);
+    });
+    productsLink.addEventListener("click", (e) => {
+        e.preventDefault();
+        toggleSection(productsSection);
+    });
+    cartLink.addEventListener("click", (e) => {
+        e.preventDefault();
+        toggleSection(cartSection);
+    });
+    searchButton.addEventListener("click", searchItems);
+    searchInput.addEventListener("input", searchItems);
+
+    // Initial Render
+    renderProducts(products, productList);
 });
